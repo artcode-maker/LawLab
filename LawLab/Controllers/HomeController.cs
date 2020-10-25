@@ -10,6 +10,7 @@ namespace LawLab.Controllers
     {
         public IActionResult Index()
         {
+            ViewBag.Title = "Студенческая юридическая лаборатория";
             return View();
         }
     }

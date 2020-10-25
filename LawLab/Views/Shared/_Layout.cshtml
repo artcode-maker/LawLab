@@ -2,12 +2,14 @@
 
 <html>
 <head>
-    <meta name="viewport" content="width=device-width" />
+    <partial name="_HeadPartial" />
+    <meta name="description" content="Юридическая клиника-лаборатория, где студенты-юристы получают свой первый опыт, а пользователи - решение своей проблемы" />
     <title>@ViewBag.Title</title>
 </head>
 <body>
-    <div>
-        @RenderBody()
-    </div>
+    @RenderSection("Header", false)
+    @RenderSection("Body", false)
+    @RenderSection("Footer", false)
+    <partial name="_ScriptsPartial" />
 </body>
 </html>

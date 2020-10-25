@@ -6,6 +6,6 @@
     "jquery": "3.5.1",
     "jquery-validation": "1.19.2",
     "jquery-validation-unobtrusive": "3.2.11",
-    "boot": "v4.5.3"
+    "components-font-awesome": "5.15.1"
   }
 }
