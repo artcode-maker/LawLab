@@ -42,7 +42,6 @@ h2 {
 #header{
     background: url(../../../../images/header.jpg) center;
     background-size: cover;
-    /*height: 100vh;*/
     height: 100%;
     min-height: 500px;
 }
@@ -87,7 +86,7 @@ h2 {
   font-size: 17px;
   text-transform: uppercase;
   padding: 10px 20px;
-  margin: 0 10px;
+  margin: 10px 10px;
   border: none;
   transition: background .5s;
 }
@@ -109,12 +108,327 @@ h2 {
   color: #fff;
 }
 
+/*=======================goals====================*/
+#goals{
+    padding: 90px 0;
+    border-bottom: 2px solid #f0f0f1;
+}
+#goals h2{
+    color: #828689;
+}
+.large {
+  color: #828689;
+  font-size: 22px;
+  margin-bottom: 20px;
+}
+
+.section-tabs {
+    border: 3px solid #ececec;
+    border-radius: 2px;
+}
+
+.section-tabs .nav-tabs li:not(.active){
+    background: #ececec;
+}
+
+.section-tabs .nav-tabs .nav-justified li a,
+.section-tabs .nav-tabs .nav-justified li .active a,
+.section-tabs .nav-tabs .nav-justified li .active a:focus,
+.section-tabs .nav-tabs .nav-justified li .active a:hover {
+    border-radius: 0;
+    border: none;
+    font-family: Ubuntu, sans-serif;
+    font-size: 18px;
+    font-weight: 700;
+    outline: 0;
+}
+
+.section-tabs .nav-tabs li .active a{
+    color: #9097a1;
+}
+
+.tab-content .tab-pane ul li {
+  list-style-type: none;
+  line-height: 30px;
+}
+
+.tab-content .tab-pane ul li i{
+    font-size: 15px;
+    color: #2cc7c1;
+    margin-right: 10px;
+}
+
+.nav-tabs li a {
+  color: #abb1ba;
+}
+
+.section-tabs .tab-content {
+    padding: 25px 20px;
+}
+
+.section-tabs .tab-content ul{
+    padding-left: 10px;
+}
+
+/*====================students-head====================*/
+
+.students-head {
+  display: block;
+  margin-top: 100px;
+  margin-bottom: 60px;
+}
+
+ .students-head h2 {
+   color: #6a7079;
+ }
+
+.students h3 {
+  color: #777a7d;
+  font-size: 20px;
+  text-transform: uppercase;
+}
+
+.item > div {
+  position: relative;
+}
+
+.front {
+  position: absolute;
+  width: 140px;
+  height: 140px;
+  cursor: pointer;
+  /*for IE*/
+  left: 50%;
+  margin-left: -70px;
+}
+
+.back {
+  width: 140px;
+  height: 140px;
+  background: #6bd8d3;
+  display: inline-block;
+  border-radius: 50%;
+  opacity: 0;
+}
+
+.back i {
+  line-height: 140px;
+  font-size: 30px;
+  color: #fff;
+}
+
+.item > div:hover .front {
+  opacity: .2;
+}
+
+.item > div:hover .back {
+  opacity: 1;
+}
+
+.item > div:hover h3 {
+  color: #6bd8d3;
+}
+
+.students-footer {
+  display: block;
+  margin-top: 70px;
+}
+
+/*===============Chats=====================*/
+
+#chats{
+    padding: 90px 0;
+}
+
+.link{
+    text-transform: uppercase;
+}
+
+.connect{
+    background: #2cc7c1;
+    color: #fff;
+    font-size:17px;
+    font-weight: 500;
+    padding: 5px;
+    border-radius: 2px;
+    margin-right: 25px;
+}
+
+.collapse-link{
+    color: #747a84;
+    font-size: 18px;
+    font-weight: 500;
+}
+
+.collapse-link:hover {
+  color: #747a84;
+}
+
+.collapse-state {
+  color: #2cc7c1;
+}
+
+
+
+/*=====================form=====================*/
+#form {
+  padding: 90px 0;
+  background: #f3f3f3;
+}
+
+.section-form {
+  background: #fff;
+  padding: 40px;
+  border-radius: 2px;
+  margin-top: 50px;
+}
+
+  .section-form input,
+  .section-form select {
+    height: 44px;
+    background: #efefef;
+    padding-right: 25px;
+  }
+
+.has-success .form-control-feedback {
+  color: #2cc7c1;
+}
+
+.has-success .form-control,
+.section-form input.form-control:focus {
+  border: 2px solid #95e3e0;
+  background: #fff;
+  box-shadow: none;
+}
+
+.form-control-feedback {
+  right: 10px;
+  line-height: 44px;
+}
+
+/*поле select - размеры, фон, горизонтальное выравнивание*/
+.select2-container--default .select2-selection--single {
+  height: 44px;
+  text-align: left;
+  background: #efefef;
+}
+  /*поле select - вертикальное выравнивание + цвет*/
+  .select2-container--default .select2-selection--single .select2-selection__rendered {
+    line-height: 44px;
+    color: #bebebe;
+  }
+/*фон открытого поля select*/
+.select2-container--open .select2-selection--single {
+  background: #2cc7c1;
+}
+  /*цвет открытого поля select*/
+  .select2-container--open .select2-selection--single .select2-selection__rendered {
+    color: #fff;
+  }
+/*выравнивание стрелки*/
+.select2-container--default .select2-selection--single .select2-selection__arrow {
+  top: 10px;
+}
+/*скрываем placeholder*/
+li.select2-results__option:first-child {
+  display: none;
+}
+/*фон списка*/
+.select2-results__options,
+.select2-container--default .select2-results__option--highlighted[aria-selected],
+.select2-container--default .select2-results__option[aria-selected="true"] {
+  background: #525b64;
+}
+/*цвет списка*/
+.select2-results__options {
+  color: #2cc7c1;
+}
+
+
+/*=======================#contacts========================*/
+#contacts {
+  background: #525b64;
+  padding: 70px 0;
+}
+
+  #contacts h3,
+  #contacts h4 {
+    color: #fff;
+    margin: 0 0 25px;
+  }
+
+    #contacts h3 span {
+      font-weight: 700;
+    }
+
+  #contacts h4 {
+    font-size: 20px;
+  }
+
+  #contacts p {
+    color: #cdd0d2;
+  }
+
+  #contacts a,
+  #contacts .contacts p {
+    font-weight: 500;
+    color: #2cc7c1;
+  }
+
+  #contacts .contacts p i {
+    margin-right: 10px;
+  }
+
+.social a {
+  margin-right: 10px;
+}
+
+/*=======================#copy========================*/
+#copy {
+  background: #3f464c;
+  padding: 15px 0;
+}
+
+  #copy p {
+    margin: 0;
+    color: #cacaca;
+    font-size: 14px;
+  }
+
 /* Large Devices, Wide Screens */
 @media only screen and (max-width : 1200px) {
 }
 
 /* Medium Devices, Desktops */
 @media only screen and (max-width : 992px) {
+  #goals,
+  #chats,
+  #form,
+  #contacts {
+    padding: 20px 0;
+  }
+
+  .students-head,
+  .students-footer {
+    margin: 20px 0;
+  }
+
+  .row-item {
+    margin-top: 30px;
+  }
+
+  .row-item-col {
+    margin: 20px 0;
+  }
+
+  #sponsors {
+    padding: 20px 0 0;
+  }
+
+    #sponsors img {
+      margin-bottom: 20px;
+    }
+
 }
 
 /* Small Devices, Tablets */
@@ -122,23 +436,36 @@ h2 {
 }
 
 @media only screen and (max-width : 600px) {
-    #header {
-        min-height: 300px;
-    }
-    .section-center{
-        max-width: 320px;
-    }
-    #header h1 {
-      font-size: 20px;
-    }
-    #header p {
-      font-size: 16px;
-    }
-    .section-btn {
-        font-size: 15px;
-    }
+  #header {
+    min-height: 300px;
+  }
+
+  .section-center {
+    max-width: 320px;
+  }
+
+  #header h1 {
+    font-size: 20px;
+  }
+
+  #header p {
+    font-size: 16px;
+  }
+
+  .section-btn {
+    font-size: 15px;
+  }
 }
 
 /* Extra Small Devices, Phones */
 @media only screen and (max-width : 480px) {
+  .row-item {
+    margin-top: 10px;
+  }
 }
+
+
+/* Large Devices, Wide Screens */
+@media only screen and (max-width : 1200px) {
+}
+

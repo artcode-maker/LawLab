@@ -1,0 +1,61 @@
+﻿<section id="goals">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <h2>Цель проекта</h2>
+                <p class="large">Обеспечить удобной платформой тех, кто нуждается в юридической помощи и тех, кто её может оказать</p>
+                <p>Философия проекта основана на стремлении его создателя предоставить студентам-юристам реальные юридические кейсы, а тем кто нуждается в юридической помощи - решение правового вопроса или знание о невозможности достижения удовлетворяющего правового результата</p>
+            </div>
+            <div class="col-md-6 row-item-col">
+                <div class="section-tabs">
+                    <!-- Nav tabs -->
+                    <ul class="nav nav-tabs nav-justified" id="myTab" role="tablist">
+                        <li class="nav-item" role="presentation">
+                            <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Студенту</a>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Клиенту</a>
+                        </li>
+                    </ul>
+                    <!-- Tab panes -->
+                    <div class="tab-content clearfix">
+                        <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                            <p>Оказываемая студентом-юристом правовая помощь основывается на:</p>
+                            <ul class="float-left">
+                                <li><i class="fa fa-check-circle"></i>Безвозмездности</li>
+                                <li><i class="fa fa-check-circle"></i>Стремлении к выскому уровню качества</li>
+                                <li><i class="fa fa-check-circle"></i>Вежливости и внимательности к обратившемуся</li>
+                                <li><i class="fa fa-check-circle"></i>Честности</li>
+                            </ul>
+                            @*<img src="~/images/tab_img.png" alt="image" class="float-right" />*@
+                        </div>
+                        <div class="tab-pane" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                            <p>Гражданин, обратившийся за правовой помощь к студенту-юристу принимает для себя следующее:</p>
+                            <ul>
+                                <li><i class="fa fa-check-circle"></i>Консультации и правовая помощь студента не является профессиональной</li>
+                                <li><i class="fa fa-check-circle"></i>Риски, связанные с неправильной консультацией и другой правовой помощью, гражданин принимает на себя</li>
+                                <li><i class="fa fa-check-circle"></i>Правовая помощь студента-юриста оказывется на безвозмездной основе</li>
+                                <li><i class="fa fa-check-circle"></i>Профессиональная юридическая помощь оказывается адвокатами и лицензированными юристами</li>
+                            </ul>
+                        </div>
+                    </div><!-- /section-tabs -->
+                </div>
+            </div>
+        </div>
+        <div class="row text-center students-head">
+            <h2>СТУДЕНТЫ МЕСЯЦА</h2><br />
+            <p class="large">Самые активные студенты месяца</p>
+        </div>
+        @await Component.InvokeAsync("BestStudents")
+        <div class="row students-footer text-center">
+            <p class="large">Sed ut perspiciatis unde omnis iste natus error <br> sit voluptatem accusantium doloremque laudantium</p>
+            <div class="section-btn">
+                <a href="#" class="btn btn-primary">register <i class="fa fa-chevron-circle-right"></i></a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<partial name="~/Views/Partials/BodyPartials/_ChatsPartial.cshtml" />
+
+@await Component.InvokeAsync("MainForm")

@@ -1,0 +1,32 @@
+﻿<section id="contacts">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 row-item-col">
+                @await Component.InvokeAsync("CountMembers")
+                <p>Наш проект привлекает самых умных и целеустремленных студентов. Присоединяйся к движению и стань ее частью!</p>
+                <p class="social">
+                    <a href=""><i class="fab fa-facebook-f"></i></a>
+                    <a href=""><i class="fab fa-vk"></i></a>
+                </p>
+            </div>
+            <div class="col-md-3 col-sm-6 row-item-col">
+                <h4>Нужна помошь?</h4>
+                <p>Если у Вас остались какие-либо вопросы, то посетите наш <a href="#">FAQs</a> или напишите нам по <a href="mailto:mail@lawlab.by">hi@eventure.com</a> и мы будем рады помочь Вам!</p>
+            </div>
+            <div class="col-md-3 col-sm-6 row-item-col">
+                <h4>Связаться с нами</h4>
+                <div class="contacts">
+                    <p><i class="fa fa-phone-square"></i> +937 99 92</p>
+                    <p><i class="fa fa-envelope"></i> <a href="mailto:mail@lawlab.by">mail@lawlab.by</a></p>
+                    <p><i class="fab fa-skype"></i> Lawlabsupport</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="copy">
+    <div class="container">
+        <p>Copyright &copy; @DateTime.Now.Year.ToString() LawLab</p>
+    </div>
+</section>

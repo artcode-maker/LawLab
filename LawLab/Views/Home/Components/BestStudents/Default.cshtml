@@ -1,0 +1,36 @@
+﻿@model IEnumerable<Student>
+
+<div class="row students text-center">
+    @foreach (Student s in @Model)
+    {
+        <div class="col-sm-3">
+            <div class="item row-item-col">
+                <div>
+                    <img src="~/images/jobs.jpg" alt="" class="front rounded-circle" data-toggle="modal" data-target="#@s.FamilyName" />
+                    <span class="back"><i class="fab fa-twitter"></i></span>
+                    <h3>@s.FirstName @s.FamilyName</h3>
+                    <!-- Modal -->
+                    <div class="modal fade" id="@s.FamilyName">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title">@s.FirstName @s.FamilyName</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    @s.Summary
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <p>@s.Summary</p>
+            </div>
+        </div>
+    }
+</div>
