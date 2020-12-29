@@ -47,15 +47,15 @@
             <p class="large">Самые активные студенты месяца</p>
         </div>
         @await Component.InvokeAsync("BestStudents")
-        <div class="row students-footer text-center">
-            <p class="large">Sed ut perspiciatis unde omnis iste natus error <br> sit voluptatem accusantium doloremque laudantium</p>
-            <div class="section-btn">
-                <a href="#" class="btn btn-primary">register <i class="fa fa-chevron-circle-right"></i></a>
-            </div>
-        </div>
+        @*<div class="row students-footer text-center">
+                <p class="large">Sed ut perspiciatis unde omnis iste natus error <br> sit voluptatem accusantium doloremque laudantium</p>
+                <div class="section-btn">
+                    <a href="#" class="btn btn-primary">register <i class="fa fa-chevron-circle-right"></i></a>
+                </div>
+            </div>*@
     </div>
 </section>
-
-<partial name="~/Views/Partials/BodyPartials/_ChatsPartial.cshtml" />
+@await Component.InvokeAsync("ActiveUsers")
+@*<partial name="~/Views/Partials/BodyPartials/_ChatsPartial.cshtml" />*@
 
 @await Component.InvokeAsync("MainForm")

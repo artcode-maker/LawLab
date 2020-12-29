@@ -12,6 +12,12 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 using LawLab.Models;
+using LawLab.Infrastructure;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authentication;
+using System.Security.Claims;
+using Microsoft.AspNetCore.Authorization;
 
 namespace LawLab
 {
@@ -25,12 +31,29 @@ namespace LawLab
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddTransient<IPasswordValidator<AppUser>, LawLabPasswordValidator>();
+            services.AddTransient<IUserValidator<AppUser>, LawLabUserValidator>();
+
             services.AddMvc();
             string conString = Configuration["ConnectionStrings:DefaultConnection"];
             services.AddDbContext<AppDbContext>(options =>
             {
                 options.UseSqlServer(conString);
             });
+
+            services.AddIdentity<AppUser, IdentityRole>(opts => 
+            {
+                opts.Password.RequiredLength = 6;
+                opts.Password.RequireNonAlphanumeric = false;
+                opts.Password.RequireLowercase = false;
+                opts.Password.RequireUppercase = false;
+                opts.Password.RequireDigit = false;
+                opts.User.RequireUniqueEmail = true;
+                opts.User.AllowedUserNameCharacters =
+                    "¸éöóêåíãøùçõúôûâàïğîëäæıÿ÷ñìèòüáş¨ÉÖÓÊÅÍÃØÙÇÕÔÛÂÀÏĞÎËÄÆİß×ÑÌÈÒÁŞ ";
+            })
+                .AddEntityFrameworkStores<AppDbContext>()
+                .AddDefaultTokenProviders();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -48,6 +71,7 @@ namespace LawLab
             app.UseStatusCodePages();
             app.UseHttpsRedirection();
             app.UseStaticFiles();
+            app.UseAuthentication();
 
             app.UseRouting();
 

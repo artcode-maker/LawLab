@@ -109,9 +109,9 @@ h2 {
 }
 
 /*=======================goals====================*/
-#goals{
-    padding: 90px 0;
-    border-bottom: 2px solid #f0f0f1;
+#goals {
+  padding: 90px 0;
+  border-bottom: 2px solid #f0f0f1;
 }
 #goals h2{
     color: #828689;
@@ -266,6 +266,18 @@ h2 {
 
 .collapse-state {
   color: #2cc7c1;
+}
+
+div p span a,
+div p span a:focus,
+div p span a:hover {
+  color: #fff;
+  border-radius: 0;
+  border: none;
+  font-family: Ubuntu, sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  outline: 0;
 }
 
 
@@ -430,6 +442,22 @@ li.select2-results__option:first-child {
     }
 
 }
+
+/*===========Others=================*/
+
+.placeholder {
+    visibility: collapse;
+    display: none;
+}
+.placeholder:only-child {
+    visibility: visible;
+    display: flex;
+}
+
+
+
+
+
 
 /* Small Devices, Tablets */
 @media only screen and (max-width : 768px) {

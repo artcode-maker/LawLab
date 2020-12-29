@@ -1,0 +1,115 @@
+﻿@model (Student, Client)
+
+@if (ViewBag.User == "Student")
+{
+<form id="myForm" method="post">
+    <div asp-validation-summary="All" class="text-danger"></div>
+    <div class="row">
+        <div class="form-group col-md-3">
+            <input type="text" class="form-control" asp-for="@Model.Item1.FirstName" name="firstName" placeholder="Ваше Имя" required>
+            <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+        </div>
+        <div class="form-group col-md-3">
+            <input type="text" class="form-control" asp-for="@Model.Item1.FamilyName" name="familyName" placeholder="Ваша Фимилия" required>
+            <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+        </div>
+        <div class="form-group col-md-3">
+            <input type="number" class="form-control" asp-for="@Model.Item1.UniversityYear" name="universityYear" placeholder="Ваш год обучения" required>
+            <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+        </div>
+        <div class="form-group col-md-3">
+            <input type="text" class="form-control" asp-for="@Model.Item1.UniversityName" name="universityName" placeholder="Наименование Вашего университета" required>
+            <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-group col-md-3">
+            <input type="text" class="form-control" asp-for="@Model.Item1.FacultyName" name="facultyName" placeholder="Наименование Вашего факультета" required>
+            <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+        </div>
+        <div class="form-group col-md-3">
+            <input type="text" maxlength="300" class="form-control" asp-for="@Model.Item1.Summary" name="Summary" placeholder="Расскажите о себе и своей специализации" required>
+            <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+        </div>
+        <div class="form-group col-md-3">
+            <input type="email" maxlength="40" class="form-control" asp-for="@Model.Item1.Email" name="email" placeholder="Ваша электронная почта" required>
+            <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+        </div>
+        <div class="form-group col-md-3">
+            <input type="password" maxlength="40" class="form-control" asp-for="@Model.Item1.Password" name="password" placeholder="Пароль" required>
+            <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+        </div>
+        <button type="submit"
+                id="registrationBtn"
+                asp-action="CreateStudentForm"
+                asp-controller="Form"
+                class="btn btn-primary">
+            Зарегистрироваться <i class="fa fa-chevron-circle-right"></i>
+        </button>
+    </div>
+</form>
+}
+else if (ViewBag.User == "Client")
+{
+<form id="myForm" method="post">
+    <div asp-validation-summary="All" class="text-danger"></div>
+    <div class="row">
+        <div class="form-group col-md-3">
+            <input type="text" class="form-control" asp-for="@Model.Item2.FirstName" name="firstName" placeholder="Ваше Имя" required>
+            <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+        </div>
+        <div class="form-group col-md-3">
+            <input type="text" class="form-control" asp-for="@Model.Item2.FamilyName" name="familyName" placeholder="Ваша Фимилия" required>
+            <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+        </div>
+        <div class="form-group col-md-3">
+            <input type="text" class="form-control" asp-for="@Model.Item2.Address" name="universityName" placeholder="Ваш адрес" required>
+            <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+        </div>
+    </div>
+    <div class="row">        
+        <div class="form-group col-md-3">
+            <input type="email" maxlength="40" class="form-control" asp-for="@Model.Item2.Email" name="email" placeholder="Ваша электронная почта" required>
+            <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+        </div>
+        <div class="form-group col-md-3">
+            <input type="password" maxlength="40" class="form-control" asp-for="@Model.Item2.Password" name="password" placeholder="Пароль" required>
+            <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+        </div>
+        <button type="submit"
+                id="registrationBtn"
+                asp-action="CreateStudentForm"
+                asp-controller="Form"
+                class="btn btn-primary">
+            Зарегистрироваться <i class="fa fa-chevron-circle-right"></i>
+        </button>
+    </div>    
+</form>
+}
+
+<script type="text/javascript">
+    $("#registrationBtn").click(function (e) {
+        e.preventDefault();
+        let btn = $(this).attr("formaction");
+        let form = $("#myForm");
+        if (btn === "/Form/CreateStudentForm") {
+            $("#myForm").remove();
+            $.ajax(btn, {
+                type: "POST",
+                data: form.serialize(),
+                success: function (data) {
+                    $("#formForInserting").html(data);
+                }
+            });
+        } else if (btn === "/Form/CreateClientForm") {
+            $("#myForm").remove();
+            $.ajax(btn, {
+                type: "POST",
+                data: form.serialize(),
+                success: function (data) {
+                    $("#formForInserting").html(data);
+                }
+            });
+        }
+    });
+</script>

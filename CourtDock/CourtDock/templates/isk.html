@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% block body %}
+
+<form method="POST" action="/isk4">
+	<table>
+		<p>Используйте форму для составления искового заявления:</p>
+		<tr>
+			<td>ФИО истца:</td>
+			<td> <input name="istec" type="text" width="60" value="Иванов Иван Иванович"></td>
+		</tr>
+		<tr>
+			<td>Адрес истца:</td>
+			<td> <input name="address_istec" type="text" width="60" value="г.Минск, ул.Красноармейская, д.1, кв.1"></td>
+		</tr>
+		<tr>
+			<td>Телефон истца:</td>
+			<td> <input name="telephone_istec" type="text" width="60" value="+375291234567"></td>
+		</tr>
+		<tr>
+			<td>ФИО ответчика:</td>
+			<td> <input name="otvetchik" type="text" width="60" value="Васильева Василиса Васильевна"></td>
+		</tr>
+		<tr>
+			<td>Адрес ответчика:</td>
+			<td> <input name="address_otvetchik" type="text" width="60" value="г.Минск, ул.Краснозвездная, д.2, кв.2"></td>
+		</tr>
+		<tr>
+			<td>Телефон ответчика:</td>
+			<td> <input name="telephone_otvetchik" type="text" width="60" value="+375297654321"></td>
+		</tr>
+		<tr>
+			<td>Дата регистрации брака:</td>
+			<td> <input name="date_wedding" type="text" width="60" value="01.02.2003"></td>
+		</tr>
+		<tr>
+			<td>Телефон ответчика:</td>
+			<td> <input name="sud" type="text" width="60" value="Суд Советского района г.Минска"></td>
+		</tr>
+	</table>
+	<p>Когда заполните все формы, кликните по кнопке:</p>
+	<p><input type="submit" value="Отправить!"></p>
+</form>
+
+{% endblock %}
