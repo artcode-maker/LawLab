@@ -1,4 +1,4 @@
-﻿@model (List<Student>, List<Client>)
+﻿@model (List<Student>, List<Client>, Dictionary<string, object>)
 @{
     int i = 0;
     int y = 0;
@@ -24,13 +24,27 @@
                         <div class="tab-pane fade show active" id="stud" role="tabpanel" aria-labelledby="stud-tab">
                             <div class="accordion" id="accordionStudent">
                                 <div class="placeholder">Суденты, доступные онлайн, отсутствуют.</div>
-                                @*@foreach (Student student in Model.Item1)
+                                @foreach (Student student in Model.Item1)
                                 {
                                     { i++; }
                                     <div class="card">
                                         <div class="card-header" id="headingStud_@i">
                                             <p class="tab-collapse clearfix">
-                                                <span class="connect"><a href="#">Подключиться</a></span>
+                                                @if (((bool)User?.Identity?.IsAuthenticated))
+                                                {
+                                                    if ((bool)Model.Item3["IsStudent"])
+                                                    {
+                                                        <span class="connect"><a class="preventRoleClient" asp-controller="Chat" asp-action="Index">Подключиться</a></span>
+                                                    }
+                                                    else if ((bool)Model.Item3["IsClient"])
+                                                    {
+                                                        <span class="connect"><a asp-controller="Chat" asp-action="Index">Подключиться</a></span>
+                                                    }
+                                                }
+                                                else
+                                                {
+                                                    <span class="connect"><a class="preventRole" asp-controller="Chat" asp-action="Index">Подключиться</a></span>
+                                                }
                                                 <a role="button" class="collapse-link" data-toggle="collapse" data-target="#collapseStudent_@i" aria-expanded="false" aria-controls="collapseStudent_@i">
                                                     @student.FamilyName @student.FirstName
                                                 </a>
@@ -43,20 +57,34 @@
                                             </div>
                                         </div>
                                     </div>
-                                }*@                                
+                                }                                
                             </div>
                         </div>
 
                         <div class="tab-pane" id="client" role="tabpanel" aria-labelledby="client-tab">
                             <div class="accordion" id="accordionClient">
                                 <div class="placeholder">Клиенты, доступные онлайн, отсутствуют.</div>
-                                @*@foreach (Client client in Model.Item2)
+                                @foreach (Client client in Model.Item2)
                                 {
                                     { y++; }
                                     <div class="card">
                                         <div class="card-header" id="headingClient_@y">
                                             <p class="tab-collapse clearfix">
-                                                <span class="connect"><a href="#">Подключиться</a></span>
+                                                @if (((bool)User?.Identity?.IsAuthenticated))
+                                                {
+                                                    if ((bool)Model.Item3["IsClient"])
+                                                    {
+                                                        <span class="connect"><a class="preventRoleStudent" asp-controller="Chat" asp-action="Index">Подключиться</a></span>
+                                                    }
+                                                    else if ((bool)Model.Item3["IsStudent"])
+                                                    {
+                                                        <span class="connect"><a asp-controller="Chat" asp-action="Index">Подключиться</a></span>
+                                                    }
+                                                }
+                                                else
+                                                {
+                                                    <span class="connect"><a class="preventRole" asp-controller="Chat" asp-action="Index">Подключиться</a></span>
+                                                }
                                                 <a role="button" class="collapse-link" data-toggle="collapse" data-target="#collapseClient_@y" aria-expanded="false" aria-controls="collapseClient_@y">
                                                     @client.FamilyName @client.FirstName
                                                 </a>
@@ -70,7 +98,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                }*@
+                                }
                             </div>
                         </div>
                     </div>

@@ -1,0 +1,91 @@
+﻿@model (AppUser, Student, Client)
+
+@if (ViewBag.User == "Student")
+{
+    <div id="headDiv" class="m-1 p-1 text-white"><h4 class="text-center m-2">Редактирование Студента</h4></div>
+    <div asp-validation-summary="All" class="text-danger"></div>
+    <form method="post" class="p-2" asp-action="Edit">
+        <div class="form-group">
+            <label asp-for="@Model.Item2.FirstName"></label>
+            <input type="text" class="form-control" asp-for="@Model.Item2.FirstName" name="firstName" placeholder="Ваше Имя" required>
+            <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="@Model.Item2.FamilyName"></label>
+            <input type="text" class="form-control" asp-for="@Model.Item2.FamilyName" name="familyName" placeholder="Ваша Фимилия" required>
+            <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="@Model.Item2.UniversityYear"></label>
+            <input type="number" class="form-control" asp-for="@Model.Item2.UniversityYear" name="universityYear" placeholder="Ваш год обучения" required>
+            <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="@Model.Item2.UniversityName"></label>
+            <input type="text" class="form-control" asp-for="@Model.Item2.UniversityName" name="universityName" placeholder="Наименование Вашего университета" required>
+            <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="@Model.Item2.FacultyName"></label>
+            <input type="text" class="form-control" asp-for="@Model.Item2.FacultyName" name="facultyName" placeholder="Наименование Вашего факультета" required>
+            <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="@Model.Item2.Summary"></label>
+            <textarea maxlength="300" class="form-control" asp-for="@Model.Item2.Summary" name="summary" placeholder="Расскажите о себе и своей специализации" required></textarea>
+            <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="@Model.Item2.Email"></label>
+            <input type="email" maxlength="40" class="form-control" asp-for="@Model.Item2.Email" name="email" placeholder="Ваша электронная почта" required>
+            <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="@Model.Item2.Password"></label>
+            <input type="password" maxlength="40" class="form-control" name="password" placeholder="Пароль" required>
+            <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+        </div>
+        <button type="submit" class="btn btn-primary">Сохранить</button>
+        <a asp-action="Index" asp-controller="Home" class="btn btn-secondary">Отмена</a>
+    </form>
+}
+
+@if (ViewBag.User == "Client")
+{
+    <div id="headDiv" class="m-1 p-1 text-white"><h4 class="text-center m-2">Редактирование Клиента</h4></div>
+    <div asp-validation-summary="All" class="text-danger"></div>
+    <form method="post" class="p-2" asp-action="Edit">
+        <div class="form-group">
+            <label asp-for="@Model.Item3.FirstName"></label>
+            <input type="text" class="form-control" asp-for="@Model.Item3.FirstName" name="firstName" placeholder="Ваше Имя" required>
+            <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="@Model.Item3.FamilyName"></label>
+            <input type="text" class="form-control" asp-for="@Model.Item3.FamilyName" name="familyName" placeholder="Ваша Фимилия" required>
+            <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="@Model.Item3.Address"></label>
+            <input type="text" class="form-control" asp-for="@Model.Item3.Address" name="address" placeholder="Ваш адрес" required>
+            <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="@Model.Item3.Issue"></label>
+            <textarea maxlength="300" class="form-control" asp-for="@Model.Item3.Issue" name="issue" placeholder="Расскажите о себе и своей проблеме" required></textarea>
+            <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="@Model.Item3.Email"></label>
+            <input type="email" maxlength="40" class="form-control" asp-for="@Model.Item3.Email" name="email" placeholder="Ваша электронная почта" required>
+            <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="@Model.Item3.Password"></label>
+            <input type="password" maxlength="40" class="form-control" name="password" placeholder="Пароль" required>
+            <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+        </div>
+        <button type="submit" class="btn btn-primary">Сохранить</button>
+        <a asp-action="Index" asp-controller="Home" class="btn btn-secondary">Отмена</a>
+    </form>
+}

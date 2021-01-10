@@ -1,0 +1,101 @@
+﻿@model (Student, Client)
+
+@if (ViewBag.User == "Student")
+{
+    <div id="headDiv" class="m-1 p-1 text-white"><h4 class="text-center m-2">Регистрация Студента</h4></div>
+    <div asp-validation-summary="All" class="text-danger"></div>
+    <form method="post" class="p-2">
+        <div class="form-group">
+            <label asp-for="@Model.Item1.FirstName"></label>
+            <input type="text" class="form-control" asp-for="@Model.Item1.FirstName" name="firstName" placeholder="Ваше Имя" required>
+            <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="@Model.Item1.FamilyName"></label>
+            <input type="text" class="form-control" asp-for="@Model.Item1.FamilyName" name="familyName" placeholder="Ваша Фимилия" required>
+            <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="@Model.Item1.UniversityYear"></label>
+            <input type="number" class="form-control" asp-for="@Model.Item1.UniversityYear" name="universityYear" placeholder="Ваш год обучения" required>
+            <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="@Model.Item1.UniversityName"></label>
+            <input type="text" class="form-control" asp-for="@Model.Item1.UniversityName" name="universityName" placeholder="Наименование Вашего университета" required>
+            <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="@Model.Item1.FacultyName"></label>
+            <input type="text" class="form-control" asp-for="@Model.Item1.FacultyName" name="facultyName" placeholder="Наименование Вашего факультета" required>
+            <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="@Model.Item1.Summary"></label>
+            <textarea maxlength="300" class="form-control" asp-for="@Model.Item1.Summary" name="summary" placeholder="Расскажите о себе и своей специализации" required></textarea>
+            <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="@Model.Item1.Email"></label>
+            <input type="email" maxlength="40" class="form-control" asp-for="@Model.Item1.Email" name="email" placeholder="Ваша электронная почта" required>
+            <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="@Model.Item1.Password"></label>
+            <input type="password" maxlength="40" class="form-control" asp-for="@Model.Item1.Password" name="password" placeholder="Пароль" required>
+            <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+        </div>
+        <button type="submit"
+                asp-action="CreateStudentForm"
+                asp-controller="Form"
+                class="btn btn-primary">
+            Зарегистрироваться <i class="fa fa-chevron-circle-right"></i>
+        </button>
+        <a asp-action="Index" asp-controller="Home" class="btn btn-secondary">На Главную</a>
+    </form>
+}
+else if (ViewBag.User == "Client")
+{
+    <div id="headDiv" class="m-1 p-1 text-white"><h4 class="text-center m-2">Регистрация Клиента</h4></div>
+    <div asp-validation-summary="All" class="text-danger"></div>
+    <form method="post" class="p-2">
+        <div class="form-group">
+            <label asp-for="@Model.Item2.FirstName"></label>
+            <input type="text" class="form-control" asp-for="@Model.Item2.FirstName" name="firstName" placeholder="Ваше Имя" required>
+            <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="@Model.Item2.FamilyName"></label>
+            <input type="text" class="form-control" asp-for="@Model.Item2.FamilyName" name="familyName" placeholder="Ваша Фимилия" required>
+            <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="@Model.Item2.Address"></label>
+            <input type="text" class="form-control" asp-for="@Model.Item2.Address" name="address" placeholder="Ваш адрес" required>
+            <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="@Model.Item2.Issue"></label>
+            <textarea maxlength="300" class="form-control" asp-for="@Model.Item2.Issue" name="issue" placeholder="Расскажите о себе и своей проблеме" required></textarea>
+            <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="@Model.Item2.Email"></label>
+            <input type="email" maxlength="40" class="form-control" asp-for="@Model.Item2.Email" name="email" placeholder="Ваша электронная почта" required>
+            <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="@Model.Item2.Password"></label>
+            <input type="password" maxlength="40" class="form-control" asp-for="@Model.Item2.Password" name="password" placeholder="Пароль" required>
+            <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+        </div>
+        <button type="submit"
+                id="registrationBtn"
+                asp-action="CreateClientForm"
+                asp-controller="Form"
+                class="btn btn-primary">
+            Зарегистрироваться <i class="fa fa-chevron-circle-right"></i>
+        </button>
+        <a asp-action="Index" asp-controller="Home" class="btn btn-secondary">На Главную</a>
+    </form>
+}

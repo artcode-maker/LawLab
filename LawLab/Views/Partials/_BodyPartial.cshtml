@@ -1,4 +1,5 @@
-﻿<section id="goals">
+﻿@model Dictionary<string, object>
+<section id="goals">
     <div class="container">
         <div class="row">
             <div class="col-md-6">
@@ -55,7 +56,7 @@
             </div>*@
     </div>
 </section>
-@await Component.InvokeAsync("ActiveUsers")
+@await Component.InvokeAsync("ActiveUsers", new { userData = Model })
 @*<partial name="~/Views/Partials/BodyPartials/_ChatsPartial.cshtml" />*@
 
 @await Component.InvokeAsync("MainForm")

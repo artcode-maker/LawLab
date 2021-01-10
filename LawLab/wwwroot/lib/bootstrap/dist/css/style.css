@@ -318,6 +318,10 @@ div p span a:hover {
   line-height: 44px;
 }
 
+#headDiv {
+  background: #7ea4e8;
+}
+
 /*поле select - размеры, фон, горизонтальное выравнивание*/
 .select2-container--default .select2-selection--single {
   height: 44px;

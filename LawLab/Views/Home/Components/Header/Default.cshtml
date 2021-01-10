@@ -11,14 +11,7 @@
                     </p>
                     <p>Юридическая клиника-лаборатория, где студенты-юристы получают свой первый опыт, а пользователи - решение своей проблемы.</p>
                     <div class="section-btn">
-                        @if (((bool)User?.Identity?.IsAuthenticated))
-                        {
-                            <a asp-action="Logout" asp-controller="Account" class="btn btn-primary">Выход <i class="fa fa-chevron-circle-right"></i></a>
-                        }
-                        else
-                        {
-                            <a asp-action="ChoiceRole" asp-controller="Form" class="btn btn-primary">Регистрация <i class="fa fa-chevron-circle-right"></i></a>
-                        }
+                        <a asp-action="ChoiceRole" asp-controller="Form" class="btn btn-primary">Регистрация <i class="fa fa-chevron-circle-right"></i></a>
                         <a href="#" class="btn btn-secondary">Правила</a>
                     </div>
                 </div>

@@ -47,42 +47,6 @@ namespace LawLab.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Clients",
-                columns: table => new
-                {
-                    ClientId = table.Column<long>(type: "bigint", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    FirstName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    FamilyName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Address = table.Column<string>(type: "nvarchar(max)", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Clients", x => x.ClientId);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Students",
-                columns: table => new
-                {
-                    StudentId = table.Column<long>(type: "bigint", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    FirstName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    FamilyName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    UniversityYear = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    Summary = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    UniversityName = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    FacultyName = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Rating = table.Column<decimal>(type: "decimal(18,2)", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Students", x => x.StudentId);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "AspNetRoleClaims",
                 columns: table => new
                 {
@@ -188,6 +152,57 @@ namespace LawLab.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "Clients",
+                columns: table => new
+                {
+                    ClientId = table.Column<long>(type: "bigint", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    FirstName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    FamilyName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Address = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Issue = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ClientUserId = table.Column<string>(type: "nvarchar(450)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Clients", x => x.ClientId);
+                    table.ForeignKey(
+                        name: "FK_Clients_AspNetUsers_ClientUserId",
+                        column: x => x.ClientUserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Students",
+                columns: table => new
+                {
+                    StudentId = table.Column<long>(type: "bigint", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    FirstName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    FamilyName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    UniversityYear = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    Summary = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    UniversityName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    FacultyName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Rating = table.Column<decimal>(type: "decimal(18,2)", nullable: true),
+                    StudentUserId = table.Column<string>(type: "nvarchar(450)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Students", x => x.StudentId);
+                    table.ForeignKey(
+                        name: "FK_Students_AspNetUsers_StudentUserId",
+                        column: x => x.StudentUserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
                 table: "AspNetRoleClaims",
@@ -226,6 +241,16 @@ namespace LawLab.Migrations
                 column: "NormalizedUserName",
                 unique: true,
                 filter: "[NormalizedUserName] IS NOT NULL");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Clients_ClientUserId",
+                table: "Clients",
+                column: "ClientUserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Students_StudentUserId",
+                table: "Students",
+                column: "StudentUserId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

@@ -94,6 +94,9 @@ namespace LawLab.Migrations
                     b.Property<string>("Address")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("ClientUserId")
+                        .HasColumnType("nvarchar(450)");
+
                     b.Property<string>("Email")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -106,7 +109,12 @@ namespace LawLab.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Issue")
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("ClientId");
+
+                    b.HasIndex("ClientUserId");
 
                     b.ToTable("Clients");
                 });
@@ -136,6 +144,9 @@ namespace LawLab.Migrations
                     b.Property<decimal?>("Rating")
                         .HasColumnType("decimal(18,2)");
 
+                    b.Property<string>("StudentUserId")
+                        .HasColumnType("nvarchar(450)");
+
                     b.Property<string>("Summary")
                         .HasColumnType("nvarchar(max)");
 
@@ -146,6 +157,8 @@ namespace LawLab.Migrations
                         .HasColumnType("decimal(18,2)");
 
                     b.HasKey("StudentId");
+
+                    b.HasIndex("StudentUserId");
 
                     b.ToTable("Students");
                 });
@@ -279,6 +292,24 @@ namespace LawLab.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens");
+                });
+
+            modelBuilder.Entity("LawLab.Models.Client", b =>
+                {
+                    b.HasOne("LawLab.Models.AppUser", "ClientUser")
+                        .WithMany()
+                        .HasForeignKey("ClientUserId");
+
+                    b.Navigation("ClientUser");
+                });
+
+            modelBuilder.Entity("LawLab.Models.Student", b =>
+                {
+                    b.HasOne("LawLab.Models.AppUser", "StudentUser")
+                        .WithMany()
+                        .HasForeignKey("StudentUserId");
+
+                    b.Navigation("StudentUser");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

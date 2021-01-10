@@ -36,31 +36,17 @@
         });
     });
 </script>
-
-@*<script type="text/javascript">
-    $(document).ready(function () {
-        $("#registrationBtn").click(function (e) {
-            e.preventDefault();
-            let btn = $(this).attributes["formaction"].value;
-            if (btn === "/Form/CreateStudentForm") {
-                $("#theForm").ajax({
-                    url: 'form/createstudentform',
-                    type: 'post',
-                    success: function (data) {
-                        document.getElementById("formForInserting").insertAdjacentHTML('afterbegin', data);
-                    }
-                });
-            } else if (btn === "/Form/CreateClientForm") {
-                $("#theForm").ajax({
-                    url: 'form/createclientform',
-                    type: 'post',
-                    success: function (data) {
-                        document.getElementById("formForInserting").insertAdjacentHTML('afterbegin', data);
-                    }
-                });
-            }
-            
-            history.pushState(null, null, "");
-        });
+<script>
+    $('.preventRole').click(function (event) {
+        event.preventDefault();
+        alert("Для подключения необходимо пройти регистрацию");
     });
-</script>*@
+    $('.preventRoleClient').click(function (event) {
+        event.preventDefault();
+        alert("Для подключения и общения со студентом необходимо зарегистрироваться в качестве клиента");
+    });
+    $('.preventRoleStudent').click(function (event) {
+        event.preventDefault();
+        alert("Для подключения и общения с клиентом необходимо зарегистрироваться в качестве студента");
+    });
+</script>

@@ -1,0 +1,77 @@
+﻿@model (IEnumerable<AppUser>, IEnumerable<Student>, IEnumerable<Client>)
+
+<div id="headDiv" class="m-1 p-1 text-white"><h4 class="text-center m-2">Аккаунты пользователей</h4></div>
+<br />
+<h2 class="text-center font-weight-bold">Студенты</h2>
+<table class="table table-sm table-bordered">
+    <tr>
+        <th>Имя</th>
+        <th>Электронная почта</th>
+        <th>Курс</th>
+        <th>Описание</th>
+        <th>Наименование университета</th>
+        <th>Наименование факультета</th>
+        <th>Рейтинг</th>
+        <th>Доступные действия</th>
+    </tr>
+    @if (Model.Item1.Count() == 0)
+    {
+        <tr><td colspan="7"></td>Аккаунты Студентов не зарегистрированы</tr>
+    }
+    else
+    {
+        foreach (Student user in Model.Item2)
+        {
+            <tr>
+                <td>@user.FirstName @user.FamilyName</td>
+                <td>@user.Email</td>
+                <td>@user.UniversityYear</td>
+                <td>@user.Summary</td>
+                <td>@user.UniversityName</td>
+                <td>@user.FacultyName</td>
+                <td>@user.Rating</td>
+                <td>
+                    <form asp-action="Delete" asp-route-id="@user.StudentId" asp-route-userType="student" method="post">
+                        <a class="btn btn-sm btn-primary" asp-action="Edit" asp-route-id="@user.StudentId" asp-route-userType="student">Редактировать</a>
+                        <button type="submit" class="btn btn-sm btn-danger">Удалить</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    }
+</table>
+
+<br />
+<h2 class="text-center font-weight-bold">Клиенты</h2>
+<table class="table table-sm table-bordered">
+    <tr>
+        <th>Имя</th>
+        <th>Электронная почта</th>
+        <th>Адрес</th>
+        <th>Юридический вопрос</th>
+        <th>Доступные действия</th>
+    </tr>
+    @if (Model.Item2.Count() == 0)
+    {
+        <tr><td colspan="4"></td>Аккаунты Клиентов не зарегистрированы</tr>
+    }
+    else
+    {
+        foreach (Client user in Model.Item3)
+        {
+            <tr>
+                <td>@user.FirstName @user.FamilyName</td>
+                <td>@user.Email</td>
+                <td>@user.Address</td>
+                <td>@user.Issue</td>
+                <td>
+                    <form asp-action="Delete" asp-route-id="@user.ClientId" asp-route-userType="client" method="post">
+                        <a class="btn btn-sm btn-primary" asp-action="Edit" asp-route-id="@user.ClientId" asp-route-userType="client">Редактировать</a>
+                        <button type="submit" class="btn btn-sm btn-danger">Удалить</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    }
+</table>
+<a asp-action="Index" asp-controller="Home" class="btn btn-secondary">На Главную</a>

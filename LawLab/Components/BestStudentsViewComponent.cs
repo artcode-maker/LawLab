@@ -17,7 +17,7 @@ namespace LawLab.Components
 
         public IViewComponentResult Invoke()
         {
-            return View(context.Students.Where(s => s.Rating >= 3).Take(4));
+            return View(context.Students.OrderByDescending(s => s.Rating).ToList().Take(4));
         }
     }
 }

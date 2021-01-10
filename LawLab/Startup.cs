@@ -13,6 +13,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 using LawLab.Models;
 using LawLab.Infrastructure;
+using LawLab.Hubs;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authentication;
@@ -31,6 +32,17 @@ namespace LawLab
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddDistributedMemoryCache();
+            services.AddSession(options =>
+            {
+                options.Cookie.Name = ".LawLab.Session";
+                options.IdleTimeout = TimeSpan.FromSeconds(120);
+                options.Cookie.IsEssential = true;
+                options.Cookie.HttpOnly = true;
+            });
+
+            services.AddSignalR();
+            services.AddCors();
             services.AddTransient<IPasswordValidator<AppUser>, LawLabPasswordValidator>();
             services.AddTransient<IUserValidator<AppUser>, LawLabUserValidator>();
 
@@ -50,7 +62,7 @@ namespace LawLab
                 opts.Password.RequireDigit = false;
                 opts.User.RequireUniqueEmail = true;
                 opts.User.AllowedUserNameCharacters =
-                    "¸éöóêåíãøùçõúôûâàïğîëäæıÿ÷ñìèòüáş¨ÉÖÓÊÅÍÃØÙÇÕÔÛÂÀÏĞÎËÄÆİß×ÑÌÈÒÁŞ ";
+                    "¸éöóêåíãøùçõúôûâàïğîëäæıÿ÷ñìèòüáş¨ÉÖÓÊÅÍÃØÙÇÕÔÛÂÀÏĞÎËÄÆİß×ÑÌÈÒÁŞ";
             })
                 .AddEntityFrameworkStores<AppDbContext>()
                 .AddDefaultTokenProviders();
@@ -58,10 +70,11 @@ namespace LawLab
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            app.UseSession();
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                app.UseBrowserLink();
+                //app.UseBrowserLink();
             }
             else
             {
@@ -74,14 +87,27 @@ namespace LawLab
             app.UseAuthentication();
 
             app.UseRouting();
+            app.UseAuthorization();
+
+            app.UseCors(policy =>
+            {
+                policy
+                    .SetIsOriginAllowed(origin => true)
+                    .AllowAnyHeader()
+                    .AllowAnyMethod()
+                    .AllowCredentials();
+            });
 
             app.UseEndpoints(endpoints =>
             {
+                endpoints.MapHub<ChatHub>("/startconsult");
+
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
-                endpoints.MapRazorPages();
+                endpoints.MapRazorPages();                
             });
+            AppDbContext.CreateAdminAccountAndRoles(app.ApplicationServices, Configuration).Wait();
         }
     }
 }

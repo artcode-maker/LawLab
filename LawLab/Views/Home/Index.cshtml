@@ -1,9 +1,10 @@
-﻿@section Header
+﻿@model Dictionary<string, object>
+@section Header
 {
-    <partial name="~/Views/Partials/_HeaderPartial.cshtml" />
+    <partial name="~/Views/Partials/_HeaderPartial.cshtml" model="@Model" />
 }
 
-<partial name="~/Views/Partials/_BodyPartial.cshtml" />
+<partial name="~/Views/Partials/_BodyPartial.cshtml" model="@Model" />
 
 @section Footer
 {
