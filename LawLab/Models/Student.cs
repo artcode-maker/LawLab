@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -38,7 +39,9 @@ namespace LawLab.Models
         [DisplayName("Название факультета")]
         public string FacultyName { get; set; }
         [Range(0, 10)]
-        public decimal? Rating { get; set; }
+        public List<decimal> Rating { get; set; }
+        [DisplayName("Фото")]
+        public IFormFile Avatar { get; set; }
         public AppUser StudentUser { get; set; }
     }
 }

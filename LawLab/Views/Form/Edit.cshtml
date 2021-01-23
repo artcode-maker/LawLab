@@ -4,7 +4,7 @@
 {
     <div id="headDiv" class="m-1 p-1 text-white"><h4 class="text-center m-2">Редактирование Студента</h4></div>
     <div asp-validation-summary="All" class="text-danger"></div>
-    <form method="post" class="p-2" asp-action="Edit">
+    <form method="post" class="p-2" asp-action="Edit" enctype="multipart/form-data">
         <div class="form-group">
             <label asp-for="@Model.Item2.FirstName"></label>
             <input type="text" class="form-control" asp-for="@Model.Item2.FirstName" name="firstName" placeholder="Ваше Имя" required>
@@ -54,7 +54,7 @@
 {
     <div id="headDiv" class="m-1 p-1 text-white"><h4 class="text-center m-2">Редактирование Клиента</h4></div>
     <div asp-validation-summary="All" class="text-danger"></div>
-    <form method="post" class="p-2" asp-action="Edit">
+    <form method="post" class="p-2" asp-action="Edit" enctype="multipart/form-data">
         <div class="form-group">
             <label asp-for="@Model.Item3.FirstName"></label>
             <input type="text" class="form-control" asp-for="@Model.Item3.FirstName" name="firstName" placeholder="Ваше Имя" required>

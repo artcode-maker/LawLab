@@ -19,6 +19,7 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authentication;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.SignalR;
 
 namespace LawLab
 {
@@ -32,11 +33,12 @@ namespace LawLab
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddSingleton<IUserIdProvider, CustomUserIdProvider>();
             services.AddDistributedMemoryCache();
             services.AddSession(options =>
             {
                 options.Cookie.Name = ".LawLab.Session";
-                options.IdleTimeout = TimeSpan.FromSeconds(120);
+                options.IdleTimeout = TimeSpan.FromSeconds(240);
                 options.Cookie.IsEssential = true;
                 options.Cookie.HttpOnly = true;
             });

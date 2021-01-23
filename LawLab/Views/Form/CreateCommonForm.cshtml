@@ -4,7 +4,7 @@
 {
     <div id="headDiv" class="m-1 p-1 text-white"><h4 class="text-center m-2">Регистрация Студента</h4></div>
     <div asp-validation-summary="All" class="text-danger"></div>
-    <form method="post" class="p-2">
+    <form method="post" class="p-2" enctype="multipart/form-data">
         <div class="form-group">
             <label asp-for="@Model.Item1.FirstName"></label>
             <input type="text" class="form-control" asp-for="@Model.Item1.FirstName" name="firstName" placeholder="Ваше Имя" required>
@@ -36,6 +36,11 @@
             <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
         </div>
         <div class="form-group">
+            <label asp-for="@Model.Item1.Avatar"></label>
+            <input type="file" class="form-control" asp-for="@Model.Item1.Avatar" name="avatar">
+            <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+        </div>
+        <div class="form-group">
             <label asp-for="@Model.Item1.Email"></label>
             <input type="email" maxlength="40" class="form-control" asp-for="@Model.Item1.Email" name="email" placeholder="Ваша электронная почта" required>
             <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
@@ -57,7 +62,7 @@
 else if (ViewBag.User == "Client")
 {
     <div id="headDiv" class="m-1 p-1 text-white"><h4 class="text-center m-2">Регистрация Клиента</h4></div>
-    <div asp-validation-summary="All" class="text-danger"></div>
+    <div asp-validation-summary="All" class="text-danger" enctype="multipart/form-data"></div>
     <form method="post" class="p-2">
         <div class="form-group">
             <label asp-for="@Model.Item2.FirstName"></label>
@@ -77,6 +82,11 @@ else if (ViewBag.User == "Client")
         <div class="form-group">
             <label asp-for="@Model.Item2.Issue"></label>
             <textarea maxlength="300" class="form-control" asp-for="@Model.Item2.Issue" name="issue" placeholder="Расскажите о себе и своей проблеме" required></textarea>
+            <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="@Model.Item2.Avatar"></label>
+            <input type="file" class="form-control" asp-for="@Model.Item2.Avatar" name="avatar">
             <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
         </div>
         <div class="form-group">

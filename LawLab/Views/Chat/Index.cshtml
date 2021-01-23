@@ -1,4 +1,6 @@
-﻿<section class="chat">
+﻿@model string
+
+<section class="chat">
     <div class="form-wrapper">
         <div class="wrapper state-wrapper">
             <p>Соединение:</p>
@@ -132,9 +134,17 @@
                 console.log(error);
             }
             if (connection.state === 'Connected') {
+
+                @*let id = @Model;
+                await connection.send('SetGroupId', id);*@
+                //await setGroupId();
+                //let message = { text: 'Hello' };
+                await connection.send('NewChatSession');
                 document.querySelector('#conState').textContent = 'Установлено';
                 document.querySelector('#conState').style.color = 'green';
                 document.querySelector('#connectButton').textContent = 'Разъединить';
+                //let id = getGroupId();
+                //appendMessage('Текущий пользователь', `Ваш групповой идентификатор: ${id}`, 'green');
             }
         } else if (connection.state === 'Connected') {
             await connection.stop();
@@ -144,13 +154,28 @@
         }
     };
 
+    async function setGroupId() {
+        let now = new Date();
+        await connection.send('SetGroupId', (@Model + now));
+    }
+
+    async function getGroupId() {
+        return await connection.invoke('GetGroupId');
+    }
+
     async function sendMessage() {
         if (connection.state === 'Connected') {
             let textArea = document.querySelector('#message');
             let message = { text: textArea.value };
+            let toStudent = await getId();
+            let toClient = await getId();
             try {
-                await connection.send('SendToOthers', message);
-                appendMessage('Я', message.text, 'green');
+                if (toStudent[0] === 's') {
+                    await connection.send('Send', message, toClient);
+                } else if (toClient[0] === 'c') {
+                    await connection.send('Send', message, toStudent);
+                }
+                //appendMessage('Я', message.text, 'green');
             }
             catch (error) {
                 console.log(error);
@@ -158,6 +183,33 @@
             document.querySelector('#message').value = '';
         }
     }
+
+    function getCookie(name) {
+        let matches = document.cookie.match(new RegExp(
+            "(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
+        ));
+        return matches ? decodeURIComponent(matches[1]) : undefined;
+    }
+
+    async function getId() {
+        let id = await connection.invoke('SendIdentifier');
+        return id;
+    }
+
+    //async function sendMessage() {
+    //    if (connection.state === 'Connected') {
+    //        let textArea = document.querySelector('#message');
+    //        let message = { text: textArea.value };
+    //        try {
+    //            await connection.send('SendToOthers', message);
+    //            appendMessage('Я', message.text, 'green');
+    //        }
+    //        catch (error) {
+    //            console.log(error);
+    //        }
+    //        document.querySelector('#message').value = '';
+    //    }
+    //}
 
     async function getName() {
         if (connection.state === 'Connected') {

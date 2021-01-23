@@ -28,7 +28,6 @@
                                 <li><i class="fa fa-check-circle"></i>Вежливости и внимательности к обратившемуся</li>
                                 <li><i class="fa fa-check-circle"></i>Честности</li>
                             </ul>
-                            @*<img src="~/images/tab_img.png" alt="image" class="float-right" />*@
                         </div>
                         <div class="tab-pane" id="profile" role="tabpanel" aria-labelledby="profile-tab">
                             <p>Гражданин, обратившийся за правовой помощь к студенту-юристу принимает для себя следующее:</p>
@@ -45,18 +44,11 @@
         </div>
         <div class="row text-center students-head">
             <h2>СТУДЕНТЫ МЕСЯЦА</h2><br />
-            <p class="large">Самые активные студенты месяца</p>
+            <p class="large">Самые лучшие студенты месяца</p>
         </div>
         @await Component.InvokeAsync("BestStudents")
-        @*<div class="row students-footer text-center">
-                <p class="large">Sed ut perspiciatis unde omnis iste natus error <br> sit voluptatem accusantium doloremque laudantium</p>
-                <div class="section-btn">
-                    <a href="#" class="btn btn-primary">register <i class="fa fa-chevron-circle-right"></i></a>
-                </div>
-            </div>*@
     </div>
 </section>
 @await Component.InvokeAsync("ActiveUsers", new { userData = Model })
-@*<partial name="~/Views/Partials/BodyPartials/_ChatsPartial.cshtml" />*@
 
 @await Component.InvokeAsync("MainForm")

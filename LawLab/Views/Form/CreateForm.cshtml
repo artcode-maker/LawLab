@@ -2,7 +2,7 @@
 
 @if (ViewBag.User == "Student")
 {
-<form id="myForm" method="post">
+<form id="myForm" method="post" enctype="multipart/form-data">
     <div asp-validation-summary="All" class="text-danger"></div>
     <div class="row">
         <div class="form-group col-md-3">
@@ -51,7 +51,7 @@
 }
 else if (ViewBag.User == "Client")
 {
-<form id="myForm" method="post">
+<form id="myForm" method="post" enctype="multipart/form-data">
     <div asp-validation-summary="All" class="text-danger"></div>
     <div class="row">
         <div class="form-group col-md-3">

@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Identity;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Http;
 
 namespace LawLab.Models
 {
@@ -31,6 +32,8 @@ namespace LawLab.Models
         public string Address { get; set; }
         [DisplayName("Юридическая проблема")]
         public string Issue { get; set; }
+        [DisplayName("Фото")]
+        public IFormFile Avatar { get; set; }
         public AppUser ClientUser { get; set; }
     }
 }

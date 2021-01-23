@@ -7,6 +7,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LawLab", "LawLab\LawLab.csp
 EndProject
 Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "CourtDock", "CourtDock\CourtDock.pyproj", "{7DECD9E9-CB38-4A28-ACDF-8462EFC041E5}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LawLabBot", "LawLabBot\LawLabBot.csproj", "{59CCFE93-3EE1-4243-97FC-E78AD80C4320}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{7DECD9E9-CB38-4A28-ACDF-8462EFC041E5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7DECD9E9-CB38-4A28-ACDF-8462EFC041E5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7DECD9E9-CB38-4A28-ACDF-8462EFC041E5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{59CCFE93-3EE1-4243-97FC-E78AD80C4320}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{59CCFE93-3EE1-4243-97FC-E78AD80C4320}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{59CCFE93-3EE1-4243-97FC-E78AD80C4320}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{59CCFE93-3EE1-4243-97FC-E78AD80C4320}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

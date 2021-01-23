@@ -1,7 +1,8 @@
-﻿<div class="bg-info text-center text-white" style="font-size:x-large;">Выбор качества, в котором Вас следует зарегистрировать</div>
+﻿<div class="bg-info text-center text-white" style="font-size:x-large;">Выбор качества, в котором Вас следует зарегистрировать, или вход в приложение</div>
 <table class="col-md-12 table">
     <tr>
-        <td class="text-right"><a asp-action="CreateStudentForm" asp-controller="Form" class="btn btn-primary">Регистрация Студента</a></td>
+        <td><a asp-action="CreateStudentForm" asp-controller="Form" class="btn btn-primary">Регистрация Студента</a></td>
         <td><a asp-action="CreateClientForm" asp-controller="Form" class="btn btn-primary">Регистрация Клиента</a></td>
+        <td><a asp-action="Login" asp-controller="Account" asp-route-returnUrl="/" class="btn btn-primary">Вход в приложение</a></td>
     </tr>
 </table>

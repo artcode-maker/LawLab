@@ -25,13 +25,18 @@ namespace LawLab.Controllers
         }
 
         [Authorize]
-        public IActionResult Index()
+        public IActionResult Index(string idUser, string role)
         {
-            if ((bool)User?.IsInRole(""))
+            if (role == "client")
             {
-
+                ViewBag.Role = "client";
+                return View("Index", idUser);
             }
-            return View();
+            else
+            {
+                ViewBag.Role = "student";
+                return View("Index", idUser);
+            }
         }
     }
 }

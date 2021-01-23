@@ -38,7 +38,7 @@
                                                     }
                                                     else if ((bool)Model.Item3["IsClient"])
                                                     {
-                                                        <span class="connect"><a asp-controller="Chat" asp-action="Index">Подключиться</a></span>
+                                                        <span class="connect"><a asp-controller="Chat" asp-action="Index" asp-route-idUser="@student.StudentId" asp-route-role="client">Подключиться</a></span>
                                                     }
                                                 }
                                                 else
@@ -78,7 +78,7 @@
                                                     }
                                                     else if ((bool)Model.Item3["IsStudent"])
                                                     {
-                                                        <span class="connect"><a asp-controller="Chat" asp-action="Index">Подключиться</a></span>
+                                                        <span class="connect"><a asp-controller="Chat" asp-action="Index" asp-route-idUser="@client.ClientId" asp-route-role="student">Подключиться</a></span>
                                                     }
                                                 }
                                                 else
