@@ -32,8 +32,12 @@ namespace LawLab.Models
         public string Address { get; set; }
         [DisplayName("Юридическая проблема")]
         public string Issue { get; set; }
+        [MaxLength(2097152)]
+        public byte[] Avatar { get; set; }
         [DisplayName("Фото")]
-        public IFormFile Avatar { get; set; }
+        [NotMapped]
+        public IFormFile Foto { get; set; }
+        public string ClientUserId { get; set; }
         public AppUser ClientUser { get; set; }
     }
 }

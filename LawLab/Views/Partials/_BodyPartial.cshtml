@@ -51,4 +51,4 @@
 </section>
 @await Component.InvokeAsync("ActiveUsers", new { userData = Model })
 
-@await Component.InvokeAsync("MainForm")
+@await Component.InvokeAsync("MainForm", new { userName = (string)Model["User"] })

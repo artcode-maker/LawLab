@@ -6,83 +6,78 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
+using LawLab.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace LawLab.Hubs
 {
     public class ChatHub : Hub<IMessageClient>
     {
-        List<string> groupIds = new List<string>();
-        string groupName = "default";
-        public Task SendToOthers(Message message)
+        private UserManager<AppUser> userManager;
+        private RoleManager<IdentityRole> roleManager;
+        private AppDbContext context;
+
+        public ChatHub(AppDbContext ctx,
+            UserManager<AppUser> usrMgr,
+            RoleManager<IdentityRole> rm)
         {
-            var messageForClient = NewMessage.Create(Context.Items["Name"] as string, message);
-            return Clients.Others.Send(messageForClient);
+            context = ctx;
+            roleManager = rm;
+            userManager = usrMgr;
+        }
+        
+        public Task SendTo(Message message)
+        {
+            string userId = Context.UserIdentifier;
+            AppUser user = userManager.FindByIdAsync(userId).Result;
+            if (userManager.IsInRoleAsync(user, "student").Result)
+            {
+                Client toClient = context.Clients
+                    .Include(c => c.ClientUser)
+                    .First(c => c.ClientId == Int64.Parse(message.Id));
+                var messageForClient = NewMessage.Create(Context.Items["Name"] as string, message);
+                return Clients.User(toClient.ClientUser.Id).Send(messageForClient);
+            }
+            else if (userManager.IsInRoleAsync(user, "client").Result)
+            {
+                Student toStudent = context.Students
+                    .Include(s => s.StudentUser)
+                    .First(c => c.StudentId == Int64.Parse(message.Id));
+
+                var messageForClient = NewMessage.Create(Context.Items["Name"] as string, message);
+                return Clients.User(toStudent.StudentUser.Id).Send(messageForClient);
+            }
+
+            return Task.CompletedTask;
         }
 
-        public Task Send(Message message, string to)
+        public Task StopChat(Message message)
         {
-            var messageForClient = NewMessage.Create(Context.Items["Name"] as string, message);
+            string userId = Context.UserIdentifier;
+            AppUser user = userManager.FindByIdAsync(userId).Result;
+            Student toStudent = context.Students
+                    .Include(s => s.StudentUser)
+                    .First(c => c.StudentId == Int64.Parse(message.Id));
 
-            if (Context.UserIdentifier != to)
-                return Clients.User(Context.UserIdentifier).Send(messageForClient);
-            return Clients.User(to).Send(messageForClient);
+            return Clients.User(toStudent.StudentUser.Id).StopChat();
         }
 
         public override async Task OnConnectedAsync()
         {
-            await Groups.AddToGroupAsync(Context.ConnectionId, groupName);
+            string userId = Context.UserIdentifier;
+            AppUser user = userManager.FindByIdAsync(userId).Result;
+
+            if (Context.User.IsInRole("student"))
+            {
+                Context.Items["student"] = userId;
+            }
+            else if (Context.User.IsInRole("client"))
+            {
+                Context.Items.Add("client", userId);
+            }
+
             await base.OnConnectedAsync();
-        }
-
-        public Task NewChatSession()
-        {
-            string str = Task.FromResult($"{GetIdAndRole().Result}").Result;
-            return Clients.Others.SendLink(str);
-        }
-
-        public Task<string> GetIdAndRole()
-        {
-            ISession session = GetHttpContextExtensions.GetHttpContext(Context).Session;
-
-            long studentId = session.Get<long>("student");
-            long clientId = session.Get<long>("client");
-
-            if (studentId != default)
-            {
-                //string link = $"<a href=\"/Chat?idUser={studentId}&amp;role=student\">Подключиться</a>";
-                string link = $"Chat?idUser={studentId}&role=student";
-                return Task.FromResult($"{link}");
-            }
-            else
-            {
-                //string link = $"<a href=\"/Chat?idUser={clientId}&amp;role=client\">Подключиться</a>";
-                string link = $"Chat?idUser={clientId}&role=client";
-                return Task.FromResult($"{link}");
-            }
-        }
-
-        public Task<string> SendIdentifier()
-        {
-            ISession session = GetHttpContextExtensions.GetHttpContext(Context).Session;
-
-            long studentId = session.Get<long>("student");
-            long clientId = session.Get<long>("client");
-
-            if (studentId != default)
-            {
-                return Task.FromResult($"student{studentId}");
-            }
-            else
-            {
-                return Task.FromResult($"client{clientId}");
-            }
-        }
-
-        public Task SetGroupId(string id)
-        {
-            groupIds.Add(id);
-
-            return Task.CompletedTask;
         }
 
         public Task SetName(string name)
@@ -103,7 +98,7 @@ namespace LawLab.Hubs
             if (Context.Items.ContainsKey("Name"))
                 return Task.FromResult(Context.Items["Name"] as string);
 
-            return Task.FromResult("Anonymous");
+            return Task.FromResult("Имя не установлено");
         }
     }
 }

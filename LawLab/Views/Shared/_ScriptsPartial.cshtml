@@ -49,7 +49,7 @@
         alert("Для подключения и общения с клиентом необходимо зарегистрироваться в качестве студента");
     });
 </script>
-@if ((bool)User?.Identity?.IsAuthenticated @*&& (string)Model["Action"] == "Index" && (string)Model["Controller"] == "Home"*@)
+@if ((bool)User?.Identity?.IsAuthenticated)
 {
     <script src="~/lib/signalr/dist/browser/signalr.min.js"></script>
     <script type="text/javascript">
@@ -58,12 +58,12 @@
             .withAutomaticReconnect()
             .build();
 
-        function beginChat(link) {
-            var ask = window.confirm("С Вами хотят начать чат. Подключаемся?");
+        function beginChat(message) {
+            let ask = window.confirm("С Вами хотят начать чат. Подключаемся?");
             if (ask) {
                 window.alert("Переходим в чат");
 
-                window.location.href = link;
+                window.location.href = message;
             }
             else {
                 window.alert("Остаёмся на месте. Нечего слишком много разговаривать.");
@@ -73,9 +73,7 @@
         connection.on('SendLink', (message) => {
             console.log('Сообщение поступило', message);
             beginChat(message);
-            //alert(message);
         });
         connection.start();
-        //let id = connection.invoke('SendIdentifier');
     </script>
 }

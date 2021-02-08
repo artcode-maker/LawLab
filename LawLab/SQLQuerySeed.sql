@@ -26,6 +26,10 @@ SELECT * FROM Students
 
 GO
 
+SELECT * FROM Rating
+
+GO
+
 SELECT * FROM AspNetUsers
 
 GO

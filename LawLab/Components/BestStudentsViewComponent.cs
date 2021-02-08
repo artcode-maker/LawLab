@@ -17,7 +17,10 @@ namespace LawLab.Components
 
         public IViewComponentResult Invoke()
         {
-            return View(context.Students.OrderByDescending(s => s.Rating).ToList().Take(4));
+            List<Student> students = context.Students.ToList();
+            var studentsToCalulate = students.Select(s => new { id = s.StudentId, rating = s.Ratings?.Select(r => r.Rate).Average() });
+            var bestStudents = studentsToCalulate.OrderByDescending(s => s.rating).Take(4).Select(s => s.id);
+            return View(students.Where(s => bestStudents.Contains(s.StudentId)));
         }
     }
 }

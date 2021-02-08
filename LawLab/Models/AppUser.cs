@@ -10,8 +10,8 @@ namespace LawLab.Models
     public class AppUser : IdentityUser
     {
         //public int StudentId { get; set; }
-        //public Student Student { get; set; }
+        public Student Student { get; set; }
         //public int ClientId { get; set; }
-        //public Client Client { get; set; }
+        public Client Client { get; set; }
     }
 }

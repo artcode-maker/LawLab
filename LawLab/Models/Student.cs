@@ -38,10 +38,13 @@ namespace LawLab.Models
         public string UniversityName { get; set; }
         [DisplayName("Название факультета")]
         public string FacultyName { get; set; }
-        [Range(0, 10)]
-        public List<decimal> Rating { get; set; }
+        public List<Rating> Ratings { get; set; }
+        [MaxLength(2097152)]
+        public byte[] Avatar { get; set; }
         [DisplayName("Фото")]
-        public IFormFile Avatar { get; set; }
+        [NotMapped]
+        public IFormFile Foto { get; set; }
+        public string StudentUserId { get; set; }
         public AppUser StudentUser { get; set; }
     }
 }

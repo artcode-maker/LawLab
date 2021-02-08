@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LawLab.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20210103195111_Initial")]
-    partial class Initial
+    [Migration("20210131105842_RatingChanges")]
+    partial class RatingChanges
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -96,6 +96,10 @@ namespace LawLab.Migrations
                     b.Property<string>("Address")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<byte[]>("Avatar")
+                        .HasMaxLength(2097152)
+                        .HasColumnType("varbinary(max)");
+
                     b.Property<string>("ClientUserId")
                         .HasColumnType("nvarchar(450)");
 
@@ -116,9 +120,31 @@ namespace LawLab.Migrations
 
                     b.HasKey("ClientId");
 
-                    b.HasIndex("ClientUserId");
+                    b.HasIndex("ClientUserId")
+                        .IsUnique()
+                        .HasFilter("[ClientUserId] IS NOT NULL");
 
                     b.ToTable("Clients");
+                });
+
+            modelBuilder.Entity("LawLab.Models.Rating", b =>
+                {
+                    b.Property<long>("RatingId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .UseIdentityColumn();
+
+                    b.Property<int>("Rate")
+                        .HasColumnType("int");
+
+                    b.Property<long>("StudentId")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("RatingId");
+
+                    b.HasIndex("StudentId");
+
+                    b.ToTable("Rating");
                 });
 
             modelBuilder.Entity("LawLab.Models.Student", b =>
@@ -127,6 +153,10 @@ namespace LawLab.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bigint")
                         .UseIdentityColumn();
+
+                    b.Property<byte[]>("Avatar")
+                        .HasMaxLength(2097152)
+                        .HasColumnType("varbinary(max)");
 
                     b.Property<string>("Email")
                         .IsRequired()
@@ -143,9 +173,6 @@ namespace LawLab.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<decimal?>("Rating")
-                        .HasColumnType("decimal(18,2)");
-
                     b.Property<string>("StudentUserId")
                         .HasColumnType("nvarchar(450)");
 
@@ -160,7 +187,9 @@ namespace LawLab.Migrations
 
                     b.HasKey("StudentId");
 
-                    b.HasIndex("StudentUserId");
+                    b.HasIndex("StudentUserId")
+                        .IsUnique()
+                        .HasFilter("[StudentUserId] IS NOT NULL");
 
                     b.ToTable("Students");
                 });
@@ -299,17 +328,28 @@ namespace LawLab.Migrations
             modelBuilder.Entity("LawLab.Models.Client", b =>
                 {
                     b.HasOne("LawLab.Models.AppUser", "ClientUser")
-                        .WithMany()
-                        .HasForeignKey("ClientUserId");
+                        .WithOne("Client")
+                        .HasForeignKey("LawLab.Models.Client", "ClientUserId");
 
                     b.Navigation("ClientUser");
+                });
+
+            modelBuilder.Entity("LawLab.Models.Rating", b =>
+                {
+                    b.HasOne("LawLab.Models.Student", "Student")
+                        .WithMany("Ratings")
+                        .HasForeignKey("StudentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Student");
                 });
 
             modelBuilder.Entity("LawLab.Models.Student", b =>
                 {
                     b.HasOne("LawLab.Models.AppUser", "StudentUser")
-                        .WithMany()
-                        .HasForeignKey("StudentUserId");
+                        .WithOne("Student")
+                        .HasForeignKey("LawLab.Models.Student", "StudentUserId");
 
                     b.Navigation("StudentUser");
                 });
@@ -363,6 +403,18 @@ namespace LawLab.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("LawLab.Models.AppUser", b =>
+                {
+                    b.Navigation("Client");
+
+                    b.Navigation("Student");
+                });
+
+            modelBuilder.Entity("LawLab.Models.Student", b =>
+                {
+                    b.Navigation("Ratings");
                 });
 #pragma warning restore 612, 618
         }

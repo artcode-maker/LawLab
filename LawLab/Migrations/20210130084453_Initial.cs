@@ -163,6 +163,7 @@ namespace LawLab.Migrations
                     Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Address = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Issue = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Avatar = table.Column<byte[]>(type: "varbinary(max)", maxLength: 2097152, nullable: true),
                     ClientUserId = table.Column<string>(type: "nvarchar(450)", nullable: true)
                 },
                 constraints: table =>
@@ -189,7 +190,7 @@ namespace LawLab.Migrations
                     Summary = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     UniversityName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     FacultyName = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Rating = table.Column<decimal>(type: "decimal(18,2)", nullable: true),
+                    Avatar = table.Column<byte[]>(type: "varbinary(max)", maxLength: 2097152, nullable: true),
                     StudentUserId = table.Column<string>(type: "nvarchar(450)", nullable: true)
                 },
                 constraints: table =>
@@ -201,6 +202,26 @@ namespace LawLab.Migrations
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Rating",
+                columns: table => new
+                {
+                    RatingId = table.Column<long>(type: "bigint", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Rate = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    StudentId = table.Column<long>(type: "bigint", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Rating", x => x.RatingId);
+                    table.ForeignKey(
+                        name: "FK_Rating_Students_StudentId",
+                        column: x => x.StudentId,
+                        principalTable: "Students",
+                        principalColumn: "StudentId",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
@@ -245,12 +266,21 @@ namespace LawLab.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_Clients_ClientUserId",
                 table: "Clients",
-                column: "ClientUserId");
+                column: "ClientUserId",
+                unique: true,
+                filter: "[ClientUserId] IS NOT NULL");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Rating_StudentId",
+                table: "Rating",
+                column: "StudentId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Students_StudentUserId",
                 table: "Students",
-                column: "StudentUserId");
+                column: "StudentUserId",
+                unique: true,
+                filter: "[StudentUserId] IS NOT NULL");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -274,10 +304,13 @@ namespace LawLab.Migrations
                 name: "Clients");
 
             migrationBuilder.DropTable(
-                name: "Students");
+                name: "Rating");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
+
+            migrationBuilder.DropTable(
+                name: "Students");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");

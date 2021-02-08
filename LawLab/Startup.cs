@@ -13,6 +13,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 using LawLab.Models;
 using LawLab.Infrastructure;
+using LawLab.Repository;
 using LawLab.Hubs;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
@@ -33,7 +34,9 @@ namespace LawLab
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddSingleton<IUserIdProvider, CustomUserIdProvider>();
+            //services.AddSingleton<IUserIdProvider, CustomUserIdProvider>();
+            services.AddSingleton<IGenericRepository<Student>, GenericRepository<Student>>();
+            services.AddSingleton<IGenericRepository<Client>, GenericRepository<Client>>();
             services.AddDistributedMemoryCache();
             services.AddSession(options =>
             {

@@ -31,7 +31,9 @@ namespace LawLab.Controllers
                 ["Authenticated"] = HttpContext.User.Identity.IsAuthenticated,
                 ["Auth Type"] = HttpContext.User.Identity.AuthenticationType,
                 ["IsStudent"] = session.Get<long>("student") != default ? true : false,
-                ["IsClient"] = session.Get<long>("client") != default ? true : false
+                ["IsClient"] = session.Get<long>("client") != default ? true : false,
+                ["studentId"] = session.Get<long>("student") != default ? session.Get<long>("student") : default,
+                ["clientId"] = session.Get<long>("client") != default ? session.Get<long>("client") : default
             };
         }
     }

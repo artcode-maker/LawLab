@@ -10,6 +10,8 @@ using System.Threading.Tasks;
 using LawLab.Extensions;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
+using System.IO;
 
 namespace LawLab.Components
 {
@@ -23,6 +25,7 @@ namespace LawLab.Components
         private IUserValidator<AppUser> userValidator;
         private IPasswordValidator<AppUser> passwordValidator;
         private IPasswordHasher<AppUser> passwordHasher;
+
         public FormController(AppDbContext ctx, 
             UserManager<AppUser> usrMgr,
             RoleManager<IdentityRole> rm,
@@ -72,7 +75,7 @@ namespace LawLab.Components
             {
                 AppUser user = new AppUser
                 {
-                    UserName = student.FirstName + student.FamilyName,
+                    UserName = student.FirstName + " " + student.FamilyName,
                     Email = student.Email
                 };                
                 IdentityResult result
@@ -81,6 +84,20 @@ namespace LawLab.Components
                 {
                     AppUser savedUser = await userManager.FindByEmailAsync(user.Email);
                     student.StudentUser = savedUser;
+                    if (student.Foto != null)
+                    {
+                        if (student.Foto.Length > 0)
+                        {
+                            byte[] p1 = null;
+                            using (var fs1 = student.Foto.OpenReadStream())
+                            using (var ms1 = new MemoryStream())
+                            {
+                                fs1.CopyTo(ms1);
+                                p1 = ms1.ToArray();
+                            }
+                            student.Avatar = p1;
+                        }
+                    }
                     context.Add(student);
                     IdentityResult identityResult =
                         await userManager.AddToRoleAsync(savedUser, "student");
@@ -135,7 +152,7 @@ namespace LawLab.Components
             {
                 AppUser user = new AppUser
                 {
-                    UserName = client.FirstName + client.FamilyName,
+                    UserName = client.FirstName + " " + client.FamilyName,
                     Email = client.Email
                 };
                 IdentityResult result
@@ -144,6 +161,20 @@ namespace LawLab.Components
                 {
                     AppUser savedUser = await userManager.FindByEmailAsync(user.Email);
                     client.ClientUser = savedUser;
+                    if (client.Foto != null)
+                    {
+                        if (client.Foto.Length > 0)
+                        {
+                            byte[] p1 = null;
+                            using (var fs1 = client.Foto.OpenReadStream())
+                            using (var ms1 = new MemoryStream())
+                            {
+                                fs1.CopyTo(ms1);
+                                p1 = ms1.ToArray();
+                            }
+                            client.Avatar = p1;
+                        }
+                    }
                     context.Add(client);
                     IdentityResult identityResult =
                         await userManager.AddToRoleAsync(savedUser, "client");
@@ -356,10 +387,14 @@ namespace LawLab.Components
             }
         }
 
-        // ViewComponent's Method
-        public IViewComponentResult Invoke()
+        // ViewComponent's Methods
+        public IViewComponentResult Invoke(string userName)
         {
-            return new ViewViewComponentResult() { };
+            string name = userName;
+            return new ViewViewComponentResult()
+            {
+                ViewData = new ViewDataDictionary<string>(ViewData, name)
+            };
         }
     }
 }

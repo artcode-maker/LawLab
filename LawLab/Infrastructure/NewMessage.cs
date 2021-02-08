@@ -16,7 +16,8 @@ namespace LawLab.Infrastructure
             return new NewMessage
             {
                 Sender = string.IsNullOrWhiteSpace(sender) ? "Ошибка" : sender,
-                Text = message.Text
+                Text = message.Text,
+                Id = message.Id
             };
         }
     }

@@ -29,7 +29,6 @@
                 <td>@user.Summary</td>
                 <td>@user.UniversityName</td>
                 <td>@user.FacultyName</td>
-                <td>@user.Rating</td>
                 <td>
                     <form asp-action="Delete" asp-route-id="@user.StudentId" asp-route-userType="student" method="post">
                         <a class="btn btn-sm btn-primary" asp-action="Edit" asp-route-id="@user.StudentId" asp-route-userType="student">Редактировать</a>
