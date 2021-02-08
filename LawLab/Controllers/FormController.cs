@@ -75,7 +75,7 @@ namespace LawLab.Components
             {
                 AppUser user = new AppUser
                 {
-                    UserName = student.FirstName + " " + student.FamilyName,
+                    UserName = student.FirstName,
                     Email = student.Email
                 };                
                 IdentityResult result
@@ -152,7 +152,7 @@ namespace LawLab.Components
             {
                 AppUser user = new AppUser
                 {
-                    UserName = client.FirstName + " " + client.FamilyName,
+                    UserName = client.FirstName,
                     Email = client.Email
                 };
                 IdentityResult result

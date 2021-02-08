@@ -35,3 +35,5 @@ SELECT * FROM AspNetUsers
 GO
 
 SELECT * FROM Clients
+
+--DELETE Students WHERE StudentId=5

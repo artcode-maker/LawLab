@@ -2,8 +2,7 @@
 <div id="headDiv" class="m-1 p-1 text-white"><h4 class="text-center m-2">Регистрация прошла успешно</h4></div>
 <table class="col-md-12 table">
     <tr>
-        <td><a asp-action="CreateStudentForm" asp-controller="Form" class="btn btn-primary">Регистрация Студента</a></td>
-        <td><a asp-action="CreateClientForm" asp-controller="Form" class="btn btn-primary">Регистрация Клиента</a></td>
+        <td><a asp-action="Login" asp-controller="Account" asp-route-returnUrl="/" class="btn btn-primary">Вход в приложение</a></td>
         <td><a asp-action="Index" asp-controller="Home" class="btn btn-secondary">На Главную</a></td>
     </tr>
 </table>

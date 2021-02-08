@@ -48,13 +48,15 @@ namespace LawLab.Controllers
                     if (context.Students
                         .Include(s => s.StudentUser)
                         .ToArray()
-                        .Select(s => s.StudentUser.Id)
+                        //.Select(s => s.StudentUser.Id)
+                        .Select(s => s.StudentUserId)
                         .Contains(user.Id))
                     {
                         long studentId = context.Students
                         .Include(s => s.StudentUser)
                         .ToArray()
-                        .First(s => s.StudentUser.Id.Contains(user.Id)).StudentId;
+                        //.First(s => s.StudentUser.Id.Contains(user.Id)).StudentId;
+                        .First(s => s.StudentUserId.Contains(user.Id)).StudentId;
                         SecurityHelper.LoggedInStudents.Add(studentId);
 
                         await signInManager.SignOutAsync();
@@ -70,13 +72,15 @@ namespace LawLab.Controllers
                     else if (context.Clients
                         .Include(c => c.ClientUser)
                         .ToArray()
-                        .Select(c => c.ClientUser.Id)
+                        //.Select(c => c.ClientUser.Id)
+                        .Select(c => c.ClientUserId)
                         .Contains(user.Id))
                     {
                         long clientId = context.Clients
                         .Include(c => c.ClientUser)
                         .ToArray()
-                        .First(s => s.ClientUser.Id.Contains(user.Id)).ClientId;
+                        //.First(s => s.ClientUser.Id.Contains(user.Id)).ClientId;
+                        .First(s => s.ClientUserId.Contains(user.Id)).ClientId;
                         SecurityHelper.LoggedInClients.Add(clientId);
 
                         await signInManager.SignOutAsync();
