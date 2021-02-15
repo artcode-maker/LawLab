@@ -36,8 +36,8 @@ namespace LawLab.Hubs
                 Client toClient = context.Clients
                     .Include(c => c.ClientUser)
                     .First(c => c.ClientId == Int64.Parse(message.Id));
-                var messageForClient = NewMessage.Create(Context.Items["Name"] as string, message);
-                return Clients.User(toClient.ClientUser.Id).Send(messageForClient);
+                var messageForUser = NewMessage.Create(Context.Items["Name"] as string, message);
+                return Clients.User(toClient.ClientUser.Id).Send(messageForUser);
             }
             else if (userManager.IsInRoleAsync(user, "client").Result)
             {
@@ -45,8 +45,8 @@ namespace LawLab.Hubs
                     .Include(s => s.StudentUser)
                     .First(c => c.StudentId == Int64.Parse(message.Id));
 
-                var messageForClient = NewMessage.Create(Context.Items["Name"] as string, message);
-                return Clients.User(toStudent.StudentUser.Id).Send(messageForClient);
+                var messageForUser = NewMessage.Create(Context.Items["Name"] as string, message);
+                return Clients.User(toStudent.StudentUser.Id).Send(messageForUser);
             }
 
             return Task.CompletedTask;

@@ -10,7 +10,7 @@
         </div>
         <div class="wrapper login-wrapper">
             <label for="name">Имя</label>
-            <input id="name" type="text" placeholder="Anonymous">
+            <input id="name" type="text" placeholder="Анонимный">
             <div class="btn-wrapper">
                 <button type="button" onclick="getName()">Получить</button>
                 <button type="button" onclick="setName()">Установить</button>
@@ -37,6 +37,15 @@
                 </form>
             </div>
         }
+        else if (Context.User.IsInRole("student"))
+        {
+            <div id="ratingDiv" hidden>
+                <form method="post">
+                    <input type="hidden" id="idStudent" name="idClient" value="">
+                    <button type="submit" asp-action="StopChatByStudent" asp-controller="Chat">На главную</button>
+                </form>
+            </div>
+        }
     </div>
     <div class="messages-wrapper">
         <div id="messages-content">
@@ -48,16 +57,16 @@
 
 <style>
     p {
-        margin-bottom: 0
+        margin-bottom: 0;
     }
 
     .chat {
         display: flex;
-        justify-content: space-between
+        justify-content: space-between;
     }
 
     .form-wrapper {
-        width: 30%
+        width: 30%;
     }
 
         .form-wrapper .wrapper {
@@ -79,11 +88,11 @@
         .btn-wrapper button {
             float: right;
             width: 30%;
-            justify-content: flex-end
+            justify-content: flex-end;
         }
 
             .btn-wrapper button:last-child {
-                margin-right: 10px
+                margin-right: 10px;
             }
 
     .message-wrapper {
@@ -221,7 +230,7 @@
     }
 
     function stopChat() {
-        window.alert("Чат окончен. Клиент остановил чат. Переход на главную страницу сайта.");
+        window.alert("Чат окончен. Собеседник остановил чат. Переход на главную страницу сайта.");
         window.location.href = "/";
     }
 </script>
@@ -241,6 +250,22 @@
             let idStud;
             if (urlParams.has('idStudent')) {
                 idStud = urlParams.get('idStudent');
+            } else if (urlParams.has('idUser')) {
+                idStud = urlParams.get('idUser');
+            }
+            $("#ratingDiv").removeAttr('hidden');
+            $("#idStudent").val(idStud);
+        }
+    </script>
+}
+else if (Context.User.IsInRole("student"))
+{
+    <script>
+        function showRating() {
+            let urlParams = new URLSearchParams(window.location.search);
+            let idStud;
+            if (urlParams.has('idClient')) {
+                idStud = urlParams.get('idClient');
             } else if (urlParams.has('idUser')) {
                 idStud = urlParams.get('idUser');
             }

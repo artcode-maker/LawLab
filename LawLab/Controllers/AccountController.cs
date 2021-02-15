@@ -48,14 +48,12 @@ namespace LawLab.Controllers
                     if (context.Students
                         .Include(s => s.StudentUser)
                         .ToArray()
-                        //.Select(s => s.StudentUser.Id)
                         .Select(s => s.StudentUserId)
                         .Contains(user.Id))
                     {
                         long studentId = context.Students
                         .Include(s => s.StudentUser)
                         .ToArray()
-                        //.First(s => s.StudentUser.Id.Contains(user.Id)).StudentId;
                         .First(s => s.StudentUserId.Contains(user.Id)).StudentId;
                         SecurityHelper.LoggedInStudents.Add(studentId);
 
@@ -72,14 +70,12 @@ namespace LawLab.Controllers
                     else if (context.Clients
                         .Include(c => c.ClientUser)
                         .ToArray()
-                        //.Select(c => c.ClientUser.Id)
                         .Select(c => c.ClientUserId)
                         .Contains(user.Id))
                     {
                         long clientId = context.Clients
                         .Include(c => c.ClientUser)
                         .ToArray()
-                        //.First(s => s.ClientUser.Id.Contains(user.Id)).ClientId;
                         .First(s => s.ClientUserId.Contains(user.Id)).ClientId;
                         SecurityHelper.LoggedInClients.Add(clientId);
 
@@ -94,7 +90,7 @@ namespace LawLab.Controllers
                         }
                     }
                 }
-                ModelState.AddModelError(nameof(LoginModel.Email), "Invalid user or password");
+                ModelState.AddModelError(nameof(LoginModel.Email), "Несуществующий пользователь или пароль");
             }
             return View(details);
         }
@@ -107,6 +103,7 @@ namespace LawLab.Controllers
             if (idUser != default)
             {
                 SecurityHelper.LoggedInStudents.Remove(idUser);
+                session.Clear();
             }
             else
             {
@@ -114,6 +111,7 @@ namespace LawLab.Controllers
                 if (idUser != default)
                 {
                     SecurityHelper.LoggedInClients.Remove(idUser);
+                    session.Clear();
                 }
             }
 

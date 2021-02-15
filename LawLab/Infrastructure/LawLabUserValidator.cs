@@ -20,7 +20,7 @@ namespace LawLab.Infrastructure
                 errors.Add(new IdentityError
                 {
                     Code = "SimpleEmailDomainError",
-                    Description = "Only real email addresses are allowed"
+                    Description = "Допускаются только настоящие адреса электронной почты"
                 });
             }
 

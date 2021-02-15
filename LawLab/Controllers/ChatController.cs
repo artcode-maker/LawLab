@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using LawLab.Hubs;
@@ -57,6 +58,21 @@ namespace LawLab.Controllers
             await hubContext.Clients.User(userId).StopChat();
         }
 
+        public async Task StopChatWithClient(long idClient, IHubContext<ChatHub, IMessageClient> hubContext)
+        {
+            var client = context.Clients.Find(idClient);
+            var userId = client.ClientUserId;
+            await hubContext.Clients.User(userId).StopChat();
+        }
+
+        [Authorize]
+        [HttpPost]
+        public IActionResult StopChatByStudent(long idClient, [FromServices] IHubContext<ChatHub, IMessageClient> hubContext)
+        {
+            StopChatWithClient(idClient, hubContext).Wait();
+            return RedirectPermanent("/");
+        }
+
         [Authorize]
         public IActionResult Index()
         {
@@ -71,8 +87,7 @@ namespace LawLab.Controllers
                     .Include(s => s.Ratings)
                     .Include(s => s.StudentUser)
                     .First(s => s.StudentId == idStudent);
-            var maxCount = student.Ratings.Count();
-            Rating newRating = new Rating { Rate = rating};
+            Rating newRating = new Rating { Rate = rating };
             student.Ratings.Add(newRating);
             context.Update(student);
             context.SaveChanges();

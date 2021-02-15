@@ -19,7 +19,7 @@ namespace LawLab.Infrastructure
                 errors.Add(new IdentityError
                 {
                     Code = "PasswordContainsUserName",
-                    Description = "Password cannot contain username"
+                    Description = "Пароль не может включать имя пользователя"
                 });
             }
             if (password.Contains("123456"))
@@ -27,7 +27,7 @@ namespace LawLab.Infrastructure
                 errors.Add(new IdentityError
                 {
                     Code = "PasswordContainsNumbersSequence",
-                    Description = "Password cannot numeric sequence"
+                    Description = "Пароль не может состоять только из последовательности чисел 123456"
                 });
             }
 

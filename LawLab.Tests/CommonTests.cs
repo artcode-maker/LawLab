@@ -193,8 +193,8 @@ namespace LawLab.Tests
             var repositoryClient = host.Services.GetService<IGenericRepository<Client>>();
 
             // Act
-            Student student = repositoryStudent.Get(1);
-            Client client = repositoryClient.Get(1);
+            Student student = repositoryStudent.Get(2);
+            Client client = repositoryClient.Get(2);
 
             // Assert
             Assert.Equal(student.StudentId, client.ClientId);
