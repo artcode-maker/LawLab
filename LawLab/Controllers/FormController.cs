@@ -3,20 +3,16 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ViewComponents;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using LawLab.Extensions;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using System.IO;
 
 namespace LawLab.Components
 {
     [ViewComponent(Name = "MainForm")]
-    //[Authorize(Roles = "admin")]
     public class FormController : Controller
     {
         private UserManager<AppUser> userManager;
@@ -375,7 +371,7 @@ namespace LawLab.Components
                     = (userManager.Users.ToArray(),
                     context.Students.ToArray(),
                     context.Clients.ToArray());
-                return View(tuple);
+                return RedirectToAction(nameof(Index), tuple);
             }
         }
 
