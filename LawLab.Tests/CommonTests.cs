@@ -1,4 +1,3 @@
-using System;
 using Xunit;
 using LawLab.Models;
 using LawLab.Repository;
@@ -7,24 +6,18 @@ using Moq;
 using System.Collections.Generic;
 using System.Collections;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
 using LawLab.Components;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ViewComponents;
 using LawLab.Hubs;
 using Microsoft.AspNetCore.SignalR;
-using LawLab.Infrastructure;
-using Microsoft.Extensions.Configuration;
 using System.IO;
 using Microsoft.Extensions.DependencyInjection;
 using System.Linq;
-using Microsoft.Extensions.Hosting.Internal;
 using Microsoft.Extensions.Hosting;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNet.SignalR.Infrastructure;
-using Microsoft.AspNet.SignalR;
-using System.Data;
 
 namespace LawLab.Tests
 {

@@ -1,26 +1,15 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
-using Microsoft.EntityFrameworkCore.Diagnostics;
 using LawLab.Models;
 using LawLab.Infrastructure;
 using LawLab.Repository;
 using LawLab.Hubs;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
-using Microsoft.AspNetCore.Authentication;
-using System.Security.Claims;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.SignalR;
 
 namespace LawLab
 {
@@ -34,7 +23,6 @@ namespace LawLab
 
         public void ConfigureServices(IServiceCollection services)
         {
-            //services.AddSingleton<IUserIdProvider, CustomUserIdProvider>();
             services.AddSingleton<IGenericRepository<Student>, GenericRepository<Student>>();
             services.AddSingleton<IGenericRepository<Client>, GenericRepository<Client>>();
             services.AddDistributedMemoryCache();
@@ -79,7 +67,6 @@ namespace LawLab
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                //app.UseBrowserLink();
             }
             else
             {

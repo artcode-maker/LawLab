@@ -17,7 +17,7 @@
         </div>
         <div class="form-group">
             <label asp-for="@Model.Item1.UniversityYear"></label>
-            <input type="number" class="form-control" asp-for="@Model.Item1.UniversityYear" name="universityYear" placeholder="Ваш год обучения" required>
+            <input type="number" min="0" max="5" class="form-control" asp-for="@Model.Item1.UniversityYear" name="universityYear" placeholder="Ваш год обучения" required>
             <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
         </div>
         <div class="form-group">
