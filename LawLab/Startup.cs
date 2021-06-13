@@ -29,7 +29,7 @@ namespace LawLab
             services.AddSession(options =>
             {
                 options.Cookie.Name = ".LawLab.Session";
-                options.IdleTimeout = TimeSpan.FromSeconds(240);
+                options.IdleTimeout = TimeSpan.FromDays(2400);
                 options.Cookie.IsEssential = true;
                 options.Cookie.HttpOnly = true;
             });

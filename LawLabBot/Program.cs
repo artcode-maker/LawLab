@@ -9,7 +9,7 @@ namespace LawLabBot
         static TelegramBotClient Bot;
         static void Main(string[] args)
         {
-            Bot = new TelegramBotClient("1547518014:AAE0qPxvPM94UMD6PomY9IQCdwa0xdZEQkA");
+            Bot = new TelegramBotClient("1547518014:AAHw880KDCKwxWMwhWP0thrxRyGnX4zwv2k");
 
             var me = Bot.GetMeAsync().Result;
 
